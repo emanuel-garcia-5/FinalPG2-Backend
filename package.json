@@ -20,6 +20,7 @@
     "express-validator": "^6.12.2",
     "fileupload": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.9"
+    "mongoose": "^6.0.9",
+    "nodemailer": "^6.7.0"
   }
 }

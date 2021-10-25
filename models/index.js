@@ -5,7 +5,8 @@ const Server = require('./server');
 const Usuario = require('./usuario');
 const Curso = require('./curso');
 const Actividad = require('./actividad');
-const Respuesta = require('./respuesta')
+const Respuesta = require('./respuesta');
+const Email = require('./mail');
 
 
 
@@ -16,6 +17,7 @@ module.exports = {
     Usuario,
     Curso,
     Actividad,
-    Respuesta
+    Respuesta,
+    ...Email
 }
 

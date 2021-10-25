@@ -1,7 +1,9 @@
 const { response } = require('express');
 const bcryptjs = require('bcryptjs');
 
-const Usuario = require('../models/usuario');
+const {Usuario, enviarMail} = require('../models');
+
+
 
 
 
@@ -30,8 +32,8 @@ const [total, usuarios] = await Promise.all([
 
 const usuariosPut = async (req, res) => {
 
-    const id = req.params.id;
-    const { _id, password, google, correo, ...resto } = req.body;
+    const id = req.usuario._id;
+    const { _id, password, correo, ...resto } = req.body;
 
     // TODO validor contra base de datos
     if (password) {
@@ -63,6 +65,8 @@ const usuariosPost = async (req, res) => {
 
 
     await usuario.save();
+
+      await  enviarMail(correo, password);
     res.json({
         ok: true,
         msg: "post API - controlador",

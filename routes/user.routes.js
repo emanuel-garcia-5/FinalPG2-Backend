@@ -13,10 +13,9 @@ const router = Router();
 
 router.get('/', usuariosGet)
 
-router.put('/:id',[
-    check('id', 'No es un id valido').isMongoId(),
-    check('id').custom(existeUsuarioPorId),
-    check('rol').custom(esRoleValido),
+router.put('/',[
+    check('password','el nuevo password debe de ser incluida').notEmpty(),
+    validarJWT,
     validarCampos
 ], usuariosPut)
 
