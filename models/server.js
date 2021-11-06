@@ -15,6 +15,7 @@ class Server {
         this.cusrsosPath = '/api/cursos';
         this.actividadesPath = '/api/actividades';
         this.respuestasPath = '/api/respuestas';
+        this.telegramPath = '/api/telegram';
         //conectar a la base de datos 
         this.conectarDB();
         //Middlewares
@@ -58,6 +59,7 @@ class Server {
         this.app.use(this.cusrsosPath, require('../routes/curso.routes'));
         this.app.use(this.actividadesPath, require('../routes/actividad.routes'));
         this.app.use(this.respuestasPath, require('../routes/respuesta.routes'));
+        this.app.use(this.telegramPath, require('../routes/telegram.routes'));
 
     }
 
