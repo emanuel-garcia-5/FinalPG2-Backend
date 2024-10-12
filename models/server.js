@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { dbConnection } = require('../DB/config.db');
 const fileUpload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
 
 
 class Server {
@@ -12,10 +13,10 @@ class Server {
 
         this.usuariosPath = '/api/usuarios';
         this.loginPath = '/api/login';
-        this.cusrsosPath = '/api/cursos';
-        this.actividadesPath = '/api/actividades';
-        this.respuestasPath = '/api/respuestas';
-        this.telegramPath = '/api/telegram';
+        this.emergenciasPath = '/api/emergencias';
+        //this.actividadesPath = '/api/actividades';
+       // this.respuestasPath = '/api/respuestas';
+       // this.telegramPath = '/api/telegram';
         //conectar a la base de datos 
         this.conectarDB();
         //Middlewares
@@ -35,10 +36,15 @@ class Server {
     middlewares() {
 
         //CORS
-        this.app.use(cors())
+        this.app.use(cors({
+            origin: process.env.ALLOWED_ORIGIN,
+            credentials: true
+        }))
 
         //Lectura y parseo del body
         this.app.use(express.json())
+
+        this.app.use(cookieParser());
 
         //Directorio Publico
         this.app.use(express.static('public'));
@@ -56,10 +62,10 @@ class Server {
 
         this.app.use(this.usuariosPath, require('../routes/user.routes'));
         this.app.use(this.loginPath, require('../routes/auth.routes'));
-        this.app.use(this.cusrsosPath, require('../routes/curso.routes'));
-        this.app.use(this.actividadesPath, require('../routes/actividad.routes'));
-        this.app.use(this.respuestasPath, require('../routes/respuesta.routes'));
-        this.app.use(this.telegramPath, require('../routes/telegram.routes'));
+        this.app.use(this.emergenciasPath, require('../routes/emergencia.routes'));
+        //this.app.use(this.actividadesPath, require('../routes/actividad.routes'));
+        //this.app.use(this.respuestasPath, require('../routes/respuesta.routes'));
+       // this.app.use(this.telegramPath, require('../routes/telegram.routes'));
 
     }
 

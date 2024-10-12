@@ -5,7 +5,7 @@ const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 
 
-const { login } = require('../controllers/auth');
+const { login, verifyLogin } = require('../controllers/auth');
 
 
 const router = Router();
@@ -15,6 +15,8 @@ router.post('/',[
     check('password', 'La contraseña es obligatoria').not().isEmpty(),
     validarCampos
 ],login );
+
+router.get('/verify',verifyLogin)
 
 
 

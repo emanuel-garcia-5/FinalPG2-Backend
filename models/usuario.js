@@ -31,7 +31,7 @@ const usuarioSchema = Schema({
     },
     rol:{
         type: String,
-        required: [true, 'El correo es obligatorio'],
+        required: [true, 'El rol es obligatorio'],
         enum:[]
         
     },
