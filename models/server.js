@@ -14,6 +14,12 @@ class Server {
         this.usuariosPath = '/api/usuarios';
         this.loginPath = '/api/login';
         this.emergenciasPath = '/api/emergencias';
+        this.despacho = '/api/despacho';
+        this.personal = '/api/personal';
+        this.recurso = '/api/recurso';
+        this.reporte = '/api/reporte';
+        this.resultado = '/api/resultado';
+        this.vehiculo = '/api/vehiculo';
         //this.actividadesPath = '/api/actividades';
        // this.respuestasPath = '/api/respuestas';
        // this.telegramPath = '/api/telegram';
@@ -63,6 +69,11 @@ class Server {
         this.app.use(this.usuariosPath, require('../routes/user.routes'));
         this.app.use(this.loginPath, require('../routes/auth.routes'));
         this.app.use(this.emergenciasPath, require('../routes/emergencia.routes'));
+        this.app.use(this.despacho, require('../routes/despacho.routes'));
+        this.app.use(this.personal, require('../routes/personal.routes'));
+        this.app.use(this.recurso, require('../routes/recurso.routes'));
+        this.app.use(this.resultado, require('../routes/resultadoEmergencia.routes'));
+        this.app.use(this.vehiculo, require('../routes/vehiculo.routes'));
         //this.app.use(this.actividadesPath, require('../routes/actividad.routes'));
         //this.app.use(this.respuestasPath, require('../routes/respuesta.routes'));
        // this.app.use(this.telegramPath, require('../routes/telegram.routes'));

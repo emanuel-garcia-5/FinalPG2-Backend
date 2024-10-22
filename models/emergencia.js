@@ -6,7 +6,7 @@ const emergenciaSchema = new mongoose.Schema({
         enum: ['Incendio', 'Accidente', 'Otro'], // Puedes agregar más tipos aquí
         required: true
     },
-    Descripción: {
+    Descripcion: {
         type: String,
         required: true
     },
@@ -14,7 +14,7 @@ const emergenciaSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    Ubicación: {
+    Ubicacion: {
         type: String,
         required: true
     },
@@ -32,6 +32,10 @@ const emergenciaSchema = new mongoose.Schema({
     ReportadoPor: {
         type: String, // Puedes usar ObjectId para referenciar a un usuario si tienes un modelo de usuario
         required: true
+    },
+    Resultado: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ResultadoEmergencia'
     }
 });
 

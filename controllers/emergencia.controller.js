@@ -2,7 +2,7 @@ const { response } = require('express');
 
 const {Emergencia} = require('../models');
 
-const getEmergencia = async (req, res) => {
+const getEmergencias = async (req, res) => {
     try {
       const emergencias = await Emergencia.find();
       res.json(emergencias);
@@ -11,7 +11,7 @@ const getEmergencia = async (req, res) => {
     }
   }
 
-  const getEmergencias = async (req, res) => {
+  const getEmergencia = async (req, res) => {
     try {
       const emergencia = await Emergencia.findById(req.params.id);
       if (!emergencia) {
@@ -24,13 +24,13 @@ const getEmergencia = async (req, res) => {
   }
 
   const postEmergencias = async (req, res) => {
-    const { EmergenciaID, TipoEmergencia, Descripción, Ubicación, Prioridad, ReportadoPor } = req.body;
+    const { EmergenciaID, TipoEmergencia, Descripcion, Ubicacion, Prioridad, ReportadoPor } = req.body;
   
     const nuevaEmergencia = new Emergencia({
       EmergenciaID,
       TipoEmergencia,
-      Descripción,
-      Ubicación,
+      Descripcion,
+      Ubicacion,
       Prioridad,
       ReportadoPor
     });
@@ -59,6 +59,33 @@ const getEmergencia = async (req, res) => {
     }
   }
 
+  const putEmergenciasEstado = async (req, res) => {
+    try {
+      const emergencia = await Emergencia.findById(req.params.id);
+
+      if(!emergencia){
+        res.status(400).json({ message: 'Error al actualizar el estado de la emergencia', error: err });
+      }
+
+      const {estado} = req.body;
+
+      emergencia.Estado = estado
+
+      const emergenciaActualizada = await Emergencia.findByIdAndUpdate(req.params.id, emergencia, {
+        new: true, // Devuelve el documento actualizado
+        runValidators: true // Para aplicar las validaciones del esquema
+      });
+  
+  
+      if (!emergenciaActualizada) {
+        return res.status(404).json({ message: 'Emergencia no encontrada' });
+      }
+      res.json(emergenciaActualizada);
+    } catch (err) {
+      res.status(400).json({ message: 'Error al actualizar la emergencia', error: err });
+    }
+  }
+
   const deleteEmergencia = async (req, res) => {
     try {
       const emergenciaEliminada = await Emergencia.findByIdAndDelete(req.params.id);
@@ -76,5 +103,6 @@ const getEmergencia = async (req, res) => {
     getEmergencias,
     postEmergencias,
     putEmergencias,
-    deleteEmergencia
+    deleteEmergencia,
+    putEmergenciasEstado
 }

@@ -39,6 +39,11 @@ const usuarioSchema = Schema({
         type: Boolean,
         default: true
     },
+    Personal: {
+        type: Schema.Types.ObjectId,
+        ref: 'Personal',
+        required: true
+    }
  
 });
 

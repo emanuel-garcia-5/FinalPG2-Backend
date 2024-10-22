@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const {validarCampos, tieneRole} = require('../middlewares')
 const { validarJWT } = require('../middlewares');
-const { getEmergencias, getEmergencia, postEmergencias, putEmergencias, deleteEmergencia, putEmergenciasEstado } = require('../controllers/emergencia.controller');
+const { reportesGet, reporteGet, reportePost, reportePut, reporteDelete } = require('../controllers/reporte.controller');
 
 const router = Router();
 
@@ -10,37 +10,30 @@ router.get('/',[
     validarJWT,
     tieneRole('ADMIN_ROLE','OPERADOR_ROLE'),
     validarCampos
-
-],getEmergencias)
+], reportesGet)
 
 router.get('/:id',[
     validarJWT,
     tieneRole('ADMIN_ROLE','OPERADOR_ROLE'),
     validarCampos
-],getEmergencia)
+], reporteGet)
 
 router.post('/',[
     validarJWT,
     tieneRole('ADMIN_ROLE','OPERADOR_ROLE'),
     validarCampos
-],postEmergencias)
+], reportePost)
 
-router.put('/:id',[
+router.put('/',[
     validarJWT,
     tieneRole('ADMIN_ROLE','OPERADOR_ROLE'),
     validarCampos
-], putEmergencias)
+], reportePut)
 
-router.put('/estado/:id',[
+router.delete('/',[
     validarJWT,
     tieneRole('ADMIN_ROLE','OPERADOR_ROLE'),
     validarCampos
-], putEmergenciasEstado)
-
-router.delete('/:id',[
-    validarJWT,
-    tieneRole('ADMIN_ROLE','OPERADOR_ROLE'),
-    validarCampos
-], deleteEmergencia)
+], reporteDelete)
 
 module.exports = router;
