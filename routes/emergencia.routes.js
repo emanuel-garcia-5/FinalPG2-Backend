@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const {validarCampos, tieneRole} = require('../middlewares')
 const { validarJWT } = require('../middlewares');
-const { getEmergencias, getEmergencia, postEmergencias, putEmergencias, deleteEmergencia, putEmergenciasEstado } = require('../controllers/emergencia.controller');
+const { getEmergencias, getEmergencia, postEmergencias, putEmergencias, deleteEmergencia, putEmergenciasEstado, infoPublica } = require('../controllers/emergencia.controller');
 
 const router = Router();
 
@@ -13,7 +13,7 @@ router.get('/',[
 
 ],getEmergencias)
 
-router.get('/:id',[
+router.get('/get/:id',[
     validarJWT,
     tieneRole('ADMIN_ROLE','OPERADOR_ROLE'),
     validarCampos
@@ -42,5 +42,7 @@ router.delete('/:id',[
     tieneRole('ADMIN_ROLE','OPERADOR_ROLE'),
     validarCampos
 ], deleteEmergencia)
+
+router.get('/infopublica',infoPublica)
 
 module.exports = router;

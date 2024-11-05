@@ -1,6 +1,6 @@
 const { response } = require('express');
 
-const {Emergencia} = require('../models');
+const {Emergencia, Personal} = require('../models');
 
 const getEmergencias = async (req, res) => {
     try {
@@ -98,11 +98,32 @@ const getEmergencias = async (req, res) => {
     }
   }
 
+  const infoPublica = async (req, res) => {
+
+    try {
+      const emergencias = await Emergencia.countDocuments();
+      const incendios = await Emergencia.countDocuments({TipoEmergencia: 'Incendio'})
+      const personal = await Personal.countDocuments();
+
+      const totales = {
+        totalEmergencias: emergencias,
+        totalIncendios: incendios,
+        totalPersonal: personal
+      }
+      res.json(totales);
+    } catch (err) {
+      console.log(err)
+      res.status(500).json({ message: 'Error al obtener emergencias', error: err });
+      
+    }
+  }
+
   module.exports = {
     getEmergencia,
     getEmergencias,
     postEmergencias,
     putEmergencias,
     deleteEmergencia,
-    putEmergenciasEstado
+    putEmergenciasEstado,
+    infoPublica
 }
